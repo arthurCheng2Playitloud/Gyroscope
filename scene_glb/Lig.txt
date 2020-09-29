@@ -1,0 +1,7 @@
+directionlight
+color : #FFFCEB
+Intensity : 1 
+Position : -8.207 , 10.346 , 36.641
+Cast shaodow
+shadow radius : 1.0
+
