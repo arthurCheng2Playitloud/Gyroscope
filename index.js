@@ -69,7 +69,7 @@ function __init3DModel() {
     document.body.appendChild(renderer.domElement);
     window.addEventListener("resize", onWindowResize, false);
 
-    if (window.innerWidth >= 1200) {
+    if (window.innerWidth <= 1200) {
       controls = new DeviceOrientationControls(camera);
     } else {
       controls = new OrbitControls(camera, renderer.domElement);
