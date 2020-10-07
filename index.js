@@ -1,6 +1,7 @@
 import * as THREE from "https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.module.js";
 import { DeviceOrientationControls } from "https://cdn.rawgit.com/mrdoob/three.js/master/examples/jsm/controls/DeviceOrientationControls.js";
 import { GLTFLoader } from "https://cdn.rawgit.com/mrdoob/three.js/master/examples/jsm/loaders/GLTFLoader.js";
+import { OrbitControls } from "./three.js-master/examples/jsm/controls/OrbitControls.js";
 function __init3DModel() {
   var camera, scene, renderer, controls, house;
   var startButton = document.getElementById("startButton");
@@ -26,23 +27,17 @@ function __init3DModel() {
       5000
     );
     camera.position.set(0, 2, 10);
-    controls = new DeviceOrientationControls(camera);
+
     scene = new THREE.Scene();
     var geometry = new THREE.SphereBufferGeometry(500, 60, 40);
     geometry.scale(-1, 1, 1);
-    //   var material = new THREE.MeshBasicMaterial({
-    //     map: new THREE.TextureLoader().load("./2294472375_24a3b8ef46_o.jpg"),
-    //   });
-    //   var mesh = new THREE.Mesh(geometry, material);
-    //   scene.add(mesh);
 
-    //   var helperGeometry = new THREE.BoxBufferGeometry(100, 100, 100, 4, 4, 4);
-    //   var helperMaterial = new THREE.MeshBasicMaterial({
-    //     color: 0xff00ff,
-    //     wireframe: true,
-    //   });
-    //   var helper = new THREE.Mesh(helperGeometry, helperMaterial);
-    //   scene.add(helper);
+    var material = new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load("sky.jpg"),
+    });
+
+    var mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
 
     //Load Model
     let loader = new GLTFLoader();
@@ -73,12 +68,21 @@ function __init3DModel() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     window.addEventListener("resize", onWindowResize, false);
+
+    if (window.innerWidth >= 1200) {
+      controls = new DeviceOrientationControls(camera);
+    } else {
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableZoom = false;
+    }
   }
+
   function animate() {
     window.requestAnimationFrame(animate);
     controls.update();
     renderer.render(scene, camera);
   }
+
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
