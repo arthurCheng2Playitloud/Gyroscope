@@ -43,7 +43,7 @@ function __init3DModel() {
     let loader = new GLTFLoader();
     loader.load(
       // resource URL
-      "./scene_glb/scene.glb",
+      "./gltf/Site.gltf",
       // called when the resource is loaded
       function (gltf) {
         scene.add(gltf.scene);
