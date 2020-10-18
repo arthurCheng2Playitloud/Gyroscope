@@ -69,11 +69,12 @@ function __init3DModel() {
     document.body.appendChild(renderer.domElement);
     window.addEventListener("resize", onWindowResize, false);
 
-    if (window.innerWidth <= 1200) {
-      controls = new DeviceOrientationControls(camera);
-    } else {
+    controls = new DeviceOrientationControls(camera);
+    console.log(controls);
+    var quaternion = controls.object.quaternion;
+    alert(`${quaternion._x} ${quaternion._y} ${quaternion._z}`);
+    if (controls.object.quaternion.isQuaternion) {
       controls = new OrbitControls(camera, renderer.domElement);
-      controls.enableZoom = false;
     }
   }
 
